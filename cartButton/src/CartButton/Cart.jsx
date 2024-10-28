@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import styles from '../CartButton/Cart.module.scss';
 
 // Create Context
@@ -38,12 +38,19 @@ export const CartProvider = ({ children }) => {
 const Cart = () => {
   const { cart, addToCart, removeFromCart, total } = useCart();
   const [showCart, setShowCart] = useState(false);
+  const [productIndex, setProductIndex] = useState(null);
 
   const products = [
     { id: 1, name: 'Laptop', price: 999 },
     { id: 2, name: 'Headphones', price: 99 },
     { id: 3, name: 'Mouse', price: 29 },
   ];
+
+  // useEffect to find index of a specific product in the cart, for example purposes
+  useEffect(() => {
+    const index = cart.findIndex(item => item.id === 1); // finding the index of the product with id 1
+    setProductIndex(index);
+  }, [cart]);
 
   return (
     <div className={styles.Carts}>
@@ -88,7 +95,15 @@ const Cart = () => {
           </div>
         </div>
       )}
+
+      {/* Optional: Displaying the found index */}
+      <div>
+        {productIndex !== -1 && productIndex !== null && (
+          <p>Index of product with ID 1 in cart: {productIndex}</p>
+        )}
+      </div>
     </div>
   );
 };
-CartContext()
+
+export default Cart;

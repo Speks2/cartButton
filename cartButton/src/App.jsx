@@ -1,4 +1,4 @@
-import {CartButton} from './CartButton/Cart.jsx';
+import { Cart } from './CartButton/Cart';
 
 
 function App() {
